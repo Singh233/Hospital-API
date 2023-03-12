@@ -2,13 +2,13 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
 
+
+
 // create an instance of express app
 const app = express();
 
-// create a route
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
+// use routes
+app.use('/api/v1', require('./routes/api/v1/index'));
 
 // start the server
 app.listen(port, (error) => {
