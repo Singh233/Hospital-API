@@ -1,7 +1,7 @@
 // import mongoose
 
 const mongoose = require('mongoose');
-const uri = process.env.NODEJS_DB;
+const uri = process.env.HOSPITAL_API_DB;
 console.log(uri)
 // connect to the database
 mongoose.connect(uri);

@@ -2,12 +2,22 @@
 const express = require('express');
 const port = process.env.PORT || 3000;
 
+
+
+
 const db = require('./config/mongoose');
 
 
 
 // create an instance of express app
 const app = express();
+
+//urlencoded to decode the data send by forms
+app.use(express.urlencoded());
+
+
+// json to decode the data send in form of json
+app.use(express.json());
 
 // use routes
 app.use('/api/v1', require('./routes/api/v1/index'));
