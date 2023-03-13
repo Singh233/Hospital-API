@@ -30,4 +30,5 @@ router.get('/:id/all_reports', passport.authenticate('jwt', {
 }), reportController.showAll);
 
 
+
 module.exports = router;

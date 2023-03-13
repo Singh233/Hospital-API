@@ -69,3 +69,30 @@ module.exports.showAll = async function(req, res){
         });
     }
 }
+
+
+// controller to show all reports of all patients filtered by specific status
+module.exports.showAllByStatus = async function(req, res){
+    try{
+        // find all reports
+        const reports = await Report.find({status: req.params.status}).sort('date');
+        // check if there are any reports
+        if(reports.length == 0){
+            return res.status(404).json({
+                message: "No reports found"
+            });
+        }
+        // filter all reports by status
+        const filteredReports = reports.filter(report => report.status == req.params.status);
+
+        return res.status(200).json({
+            message: "All reports of all patients",
+            reports: filteredReports
+        });
+    }catch(err){
+        console.log('Error', err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}
