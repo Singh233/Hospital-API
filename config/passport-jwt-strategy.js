@@ -12,18 +12,14 @@ let opts = {
     secretOrKey: 'hospital-api'
 }
 
-passport.use(new JWTStrategy(opts, function(jwtPayload, done){
-    Doctor.findById(jwtPayload._id, function(err, doctor){
-        if(err){
-            console.log('Error in finding doctor from JWT');
-            return;
-        }
-        if(doctor){
-            return done(null, doctor);
-        }else{
-            return done(null, false);
-        }
-    });
+passport.use(new JWTStrategy(opts, async function(jwtPayload, done){
+    const doctor = await Doctor.findById(jwtPayload._id);
+    if(doctor){
+        return done(null, doctor);
+    }else{
+        return done(null, false);
+    }
+    
 }));
 
 module.exports = passport;

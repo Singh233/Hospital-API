@@ -9,4 +9,7 @@ router.get('/', (req, res) => {
 // route for doctors 
 router.use('/doctors', require('./doctors'));
 
+// route for patients
+router.use('/patients', require('./patients'));
+
 module.exports = router;

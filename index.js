@@ -1,5 +1,6 @@
 // import express
 const express = require('express');
+const passport = require('./config/passport-jwt-strategy');
 const port = process.env.PORT || 3000;
 
 
@@ -14,6 +15,10 @@ const app = express();
 
 //urlencoded to decode the data send by forms
 app.use(express.urlencoded());
+
+// use passport
+app.use(passport.initialize());
+
 
 
 // json to decode the data send in form of json
