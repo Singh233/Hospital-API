@@ -36,3 +36,36 @@ module.exports.create = async function(req, res){
         });
     }
 }
+
+// controller to show all reports of a patient from oldest to newest
+module.exports.showAll = async function(req, res){
+    try{
+        console.log(req.params.id)
+        // find the patient
+        const patient = await Patient.findById(req.params.id);
+        if(patient){
+            // find all reports of the patient
+            const reports = await Report.find({patient: patient._id}).sort('date');
+            // check if there are any reports
+            if(reports.length == 0){
+                return res.status(404).json({
+                    message: "No reports found"
+                });
+            }
+            // else return all reports
+            return res.status(200).json({
+                message: "All reports of the patient",
+                reports: reports
+            });
+        }else{
+            return res.status(404).json({
+                message: "Patient not found"
+            });
+        }
+    }catch(err){
+        console.log('Error', err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}

@@ -23,4 +23,11 @@ router.post('/:id/create_report', passport.authenticate('jwt', {
     failureRedirect: '/api/v1/patients/auth-failed'
 }), reportController.create);
 
+// route to show all reports of a patient
+router.get('/:id/all_reports', passport.authenticate('jwt', {
+    session: false,
+    failureRedirect: '/api/v1/patients/auth-failed'
+}), reportController.showAll);
+
+
 module.exports = router;
