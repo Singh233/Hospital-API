@@ -17,7 +17,6 @@ module.exports.create = async function(req, res){
         }
 
         // else create a patient and save it to the database
-        console.log(req.user);
         const patient = await Patient.create({...req.body, doctor: req.user._id});
         return res.status(200).json({
             message: "Patient registered successfully",

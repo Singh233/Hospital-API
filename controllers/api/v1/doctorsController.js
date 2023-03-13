@@ -48,11 +48,10 @@ module.exports.createSession = async function(req, res){
             _id: doctor._id,
             name: doctor.name,
             email: doctor.email,
-            exp: Math.floor(Date.now() / 1000) + (60) // Token expiration time
 
         }
         // generate JWT token
-        const token = jwt.sign(payload, SECRETKEY);
+        const token = jwt.sign(payload, SECRETKEY, {expiresIn: 1000000}); // 1000000 seconds = 11 days
 
         // send the token to the client
         return res.status(200).json({

@@ -44,18 +44,20 @@ module.exports.showAll = async function(req, res){
         // find the patient
         const patient = await Patient.findById(req.params.id);
         if(patient){
-            // find all reports of the patient
-            const reports = await Report.find({patient: patient._id}).sort('date');
+            // populate the patient with all reports
+            await patient.populate('reports');
+            
             // check if there are any reports
-            if(reports.length == 0){
+            if(patient.reports.length == 0){
                 return res.status(404).json({
                     message: "No reports found"
                 });
             }
+
             // else return all reports
             return res.status(200).json({
                 message: "All reports of the patient",
-                reports: reports
+                data: patient
             });
         }else{
             return res.status(404).json({
@@ -75,7 +77,7 @@ module.exports.showAll = async function(req, res){
 module.exports.showAllByStatus = async function(req, res){
     try{
         // find all reports
-        const reports = await Report.find({status: req.params.status}).sort('date');
+        const reports = await Report.find({status: req.params.status}).sort('date').populate('patient');
         // check if there are any reports
         if(reports.length == 0){
             return res.status(404).json({
@@ -87,7 +89,7 @@ module.exports.showAllByStatus = async function(req, res){
 
         return res.status(200).json({
             message: "All reports of all patients",
-            reports: filteredReports
+            data: filteredReports
         });
     }catch(err){
         console.log('Error', err);
