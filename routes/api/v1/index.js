@@ -10,6 +10,6 @@ router.get('/', (req, res) => {
 router.use('/doctors', require('./doctors'));
 
 // route for patients
-router.use('/patients', require('./patients'));
+router.use('/patients', require('./patientsAndReports'));
 
 module.exports = router;

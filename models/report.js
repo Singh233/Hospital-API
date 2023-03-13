@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Report schema and model
 const ReportSchema = new mongoose.Schema({
-    title: {
+    createdBy: {
         type: String,
         required: true
     },
